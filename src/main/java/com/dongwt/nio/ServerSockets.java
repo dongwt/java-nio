@@ -13,23 +13,23 @@ import java.nio.channels.SocketChannel;
 public class ServerSockets {
 
     public static void main(String[] args) throws Exception {
-        ServerSocketChannel channel =  ServerSocketChannel.open();
+        ServerSocketChannel channel = ServerSocketChannel.open();
         channel.socket().bind(new InetSocketAddress(9999));
         channel.configureBlocking(false);//非阻塞模式
 
         ByteBuffer readBuffer = ByteBuffer.allocate(13);
         boolean flag = true;
-        while (flag){
+        while (flag) {
             SocketChannel socketChannel = channel.accept();
-            if (socketChannel == null){
+            if (socketChannel == null) {
                 System.out.println("waiting for accept ....");
                 Thread.sleep(1000);
                 continue;
             }
             int length = socketChannel.read(readBuffer);
-            while(length != -1){
+            while (length != -1) {
                 readBuffer.flip();
-                while (readBuffer.hasRemaining()){
+                while (readBuffer.hasRemaining()) {
                     System.out.print((char) readBuffer.get());
                 }
                 System.out.println("---------------------");
