@@ -1,6 +1,5 @@
 package com.dongwt.nio;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -12,12 +11,18 @@ import java.nio.channels.SocketChannel;
  **/
 public class ClientSockers {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         SocketChannel socketChannel = SocketChannel.open();
+        socketChannel.configureBlocking(false);//非阻塞模式
         socketChannel.connect(new InetSocketAddress("127.0.0.1",9999));
 
+        while (!socketChannel.finishConnect()){
+            System.out.println("waiting for connect ....");
+            Thread.sleep(1000);
+        }
+
         for (int i =0; i<50; i++){
-            String data = "hello world " + System.currentTimeMillis();
+        String data = "hello world !";
 
             ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
             writeBuffer.clear();
