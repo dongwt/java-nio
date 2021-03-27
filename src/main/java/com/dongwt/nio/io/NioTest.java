@@ -31,7 +31,7 @@ public class NioTest {
                 int count = item.read(buffer);
                 if(count > 0){
                     buffer.flip();
-                    byte[] bytes = new byte[count];
+                    byte[] bytes = new byte[buffer.limit()];
                     buffer.get(bytes);
                     String request = new String(bytes);
                     System.out.println("request:" + request);
