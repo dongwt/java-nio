@@ -10,6 +10,7 @@ public class BioTest {
     public static void main(String[] args) throws Exception {
         ServerSocket server = new ServerSocket();
         server.bind(new InetSocketAddress(8080));
+        System.out.println("ServerSocket start success");
         while (true){
             final Socket client = server.accept();//阻塞
             System.out.println("client:"+ client.getInetAddress().getHostAddress());
