@@ -14,6 +14,8 @@ public class BioTest {
         while (true){
             final Socket client = server.accept();//阻塞
             System.out.println("client:"+ client.getInetAddress().getHostAddress());
+//            System.out.println("please input:");
+//            System.in.read();
             new Thread(new Runnable() {
                 public void run() {
                     InputStream in = null;
