@@ -23,7 +23,7 @@ public class BioTest {
                         in = client.getInputStream();
                         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                         while (true){
-                            String request = reader.readLine();//阻塞
+                            String request = reader.readLine();//阻塞,单个调内核
                             System.out.println("request:"+ request);
                             OutputStream out = client.getOutputStream();
                             out.write((request+"\n\n").getBytes());

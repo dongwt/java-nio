@@ -28,7 +28,7 @@ public class NioTest {
 
             for(SocketChannel item : clients){
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
-                int count = item.read(buffer);
+                int count = item.read(buffer);//非阻塞,单个调内核
                 if(count > 0){
                     buffer.flip();
                     byte[] bytes = new byte[buffer.limit()];

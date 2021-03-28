@@ -38,7 +38,7 @@ public class SimpleNettyTest {
                 Set<SelectionKey> keys = selector.keys();
                 System.out.println(keys.size() + " size");
 
-                while (selector.select() > 0){
+                if (selector.select() > 0){//阻塞，批量调一次内核  select poll epoll
                     Set<SelectionKey> selectionKeys = selector.selectedKeys();
                     Iterator<SelectionKey> iterator = selectionKeys.iterator();
                     while (iterator.hasNext()){
