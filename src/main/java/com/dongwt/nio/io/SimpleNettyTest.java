@@ -68,23 +68,28 @@ public class SimpleNettyTest {
         private void readHandler(SelectionKey key) throws Exception{
             SocketChannel client = (SocketChannel) key.channel();
             ByteBuffer buffer = (ByteBuffer) key.attachment();
-
-            int read = 0;
-            while (true) {
-                read = client.read(buffer);
-                if(read > 0){
-                    buffer.flip();
-                    while (buffer.hasRemaining()){
-                        client.write(buffer);
+            try{
+                int read = 0;
+                while (true) {
+                    read = client.read(buffer);
+                    if(read > 0){
+                        buffer.flip();
+                        while (buffer.hasRemaining()){
+                            client.write(buffer);
+                        }
+                        buffer.clear();
+                    }else if(read == 0){
+                        break;
+                    }else {
+                        client.close();
+                        break;
                     }
-                    buffer.clear();
-                }else if(read == 0){
-                    break;
-                }else {
-                    client.close();
-                    break;
                 }
+            }catch (Throwable ex){
+                ex.printStackTrace();
+                client.close();
             }
+
         }
     }
 
